@@ -1,19 +1,41 @@
 import React, { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 
-export default function GoalInput({setProgressValue}) {
-  const [goals, setGoals] = useState([
-    { text: "", completed: false },
-    { text: "", completed: false },
-    { text: "", completed: false },
-  ]);
+export default function GoalInput({ setProgressValue ,setProgressLabel}) {
+ const  ProgressBarQuotes =[
+    "Fuel your progress — one goal at a time.",
+    "Watch your progress rise with every task! ",
+    "Just a step away, keep going.",
+    "Great job! Now you cand add new goals.↗️ ",
+  ]
+  const [goals, setGoals] = useState(
+    JSON.parse(localStorage.getItem("goals")) || [
+      { text: "Drink 8 glasses of water", completed: false },
+      { text: "Spend 30 minutes learning something new", completed: false},
+      { text: "", completed: false },
+    ]
+  );
 
+  const ProgressBar = () => {
+    // Calculate progress bar value
+    const completedGoals = goals.filter((value) => {
+      return value.completed;
+    });
+    setProgressValue((completedGoals.length * 100) / goals.length);
+    setProgressLabel(ProgressBarQuotes[completedGoals.length])
+  };
+  onload = () => {
+    ProgressBar();
+  };
   const [showError, setShowError] = useState(false);
 
   const handleTextChange = (index, value) => {
+    if (goals[index].completed) return;
+
     const updatedGoals = [...goals];
     updatedGoals[index].text = value;
     setGoals(updatedGoals);
+    localStorage.setItem("goals", JSON.stringify(updatedGoals));
   };
 
   const handleCheckboxClick = (index) => {
@@ -28,12 +50,10 @@ export default function GoalInput({setProgressValue}) {
     const updatedGoals = [...goals];
     updatedGoals[index].completed = !updatedGoals[index].completed;
     setGoals(updatedGoals);
-  
+    localStorage.setItem("goals", JSON.stringify(updatedGoals));
+
     // Calculate progress bar value
-     const completedGoals = goals.filter((value)=>{
-          return value.completed
-     })
-     setProgressValue(completedGoals.length * 100 / goals.length)
+    ProgressBar();
 
     // if (index === goals.length - 1) {
     //   setGoals([...goals, { text: "", completed: false }]);
@@ -44,11 +64,11 @@ export default function GoalInput({setProgressValue}) {
     <>
       {/* Error Label */}
       <p
-        className={`text-[#FF5151] text-sm  py-[16px_10px]  ${
+        className={`text-[#FF5151] text-sm  py-[12px_10px]  ${
           showError ? "visible" : "invisible"
         }`}
       >
-       Please fill out all inputs before checking a goal.
+        Please fill out all inputs before checking a goal.
       </p>
       <div className="flex flex-col gap-5 md:gap-8">
         {goals.map((goal, index) => (
@@ -77,7 +97,6 @@ export default function GoalInput({setProgressValue}) {
           </div>
         ))}
       </div>
-
     </>
   );
 }

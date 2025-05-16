@@ -14,8 +14,10 @@
   .animate-rotate360 {
     animation: rotate360 20s linear infinite;
   }
+ 
   .hover\:animate-rotate360-fast:hover {
     animation: rotate360 5s linear infinite;
     animation-delay: 1s;
   }
+  
 }
