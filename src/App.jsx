@@ -16,10 +16,15 @@ function App() {
   const [goalButton, setGoalButton] = useState(false);
 
   const handleAddNewGoal = () => {
+    
+    if (goals.length <= 4) {
     setGoals([...goals, { text: "", completed: false, newGoal: true }]);
+    }
+    else{
+      alert("You can't add more than 5 goals")
+    }
   };
 
-  console.log(goals)
   return (
     <>
       <main className="flex justify-center items-center  m-6 font-[Poppins_sans-serif] relative ">

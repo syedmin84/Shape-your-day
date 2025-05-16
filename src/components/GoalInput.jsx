@@ -5,8 +5,8 @@ export default function GoalInput({
   setProgressValue,
   setProgressLabel,
   setGoalButton,
-   goals,
-  setGoals
+  goals,
+  setGoals,
 }) {
   const ProgressBarQuotes = [
     "Fuel your progress — one goal at a time.",
@@ -14,13 +14,6 @@ export default function GoalInput({
     "Just a step away, keep going.",
     "Great job! Now you cand add new goals.↗️ ",
   ];
-  // const [goals, setGoals] = useState(
-  //   JSON.parse(localStorage.getItem("goals")) || [
-  //     { text: "Drink 8 glasses of water", completed: false },
-  //     { text: "Spend 30 minutes learning something new", completed: false },
-  //     { text: "", completed: false },
-  //   ]
-  // );
 
   const ProgressBar = () => {
     // Calculate progress bar value
