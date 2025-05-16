@@ -1,1 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+@config "../tailwind.config.js"; /* Config file link karo */
+
+@keyframes rotate360 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@layer utilities {
+  .animate-rotate360 {
+    animation: rotate360 20s linear infinite;
+  }
+  .hover\:animate-rotate360-fast:hover {
+    animation: rotate360 5s linear infinite;
+    animation-delay: 1s;
+  }
+}
