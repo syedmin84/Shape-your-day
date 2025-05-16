@@ -2,8 +2,24 @@ import { useState } from "react";
 import "./App.css";
 import GoalInput from "./components/GoalInput";
 function App() {
+  const [goals, setGoals] = useState(
+    JSON.parse(localStorage.getItem("goals")) || [
+      { text: "Drink 8 glasses of water", completed: false },
+      { text: "Spend 30 minutes learning something new", completed: false },
+      { text: "", completed: false },
+    ]
+  );
+  
+
   const [progrssValue, setProgressValue] = useState(0);
   const [ProgressLabel, setProgressLabel] = useState("");
+  const [goalButton, setGoalButton] = useState(false);
+
+  const handleAddNewGoal = () => {
+    setGoals([...goals, { text: "", completed: false, newGoal: true }]);
+  };
+
+  console.log(goals)
   return (
     <>
       <main className="flex justify-center items-center  m-6 font-[Poppins_sans-serif] relative ">
@@ -60,6 +76,9 @@ function App() {
             <GoalInput
               setProgressValue={setProgressValue}
               setProgressLabel={setProgressLabel}
+              setGoalButton={setGoalButton}
+              goals={goals}
+              setGoals={setGoals}
             />
             <footer className="flex flex-col gap-10 items-center justify-center text-[#fff]   mt-[40px]">
               <section className="relative flex items-center lg:justify-center w-full ">
@@ -67,8 +86,11 @@ function App() {
                   “Shape the present. Own the future!”
                 </p>
                 <button
+                  onClick={handleAddNewGoal}
                   type="button"
-                  className=" invisible absolute right-0 bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br  focus:ring-cyan-300 dark:focus:ring-cyan-800 font-bold rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 hover:scale-105 cursor-pointer"
+                  className={`absolute right-0 bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br  focus:ring-cyan-300 dark:focus:ring-cyan-800 font-bold rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 hover:scale-105 cursor-pointer ${
+                    goalButton ? "visible" : "invisible"
+                  }`}
                 >
                   Add New Goals
                 </button>

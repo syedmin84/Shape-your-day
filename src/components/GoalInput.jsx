@@ -1,20 +1,26 @@
 import React, { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 
-export default function GoalInput({ setProgressValue ,setProgressLabel}) {
- const  ProgressBarQuotes =[
+export default function GoalInput({
+  setProgressValue,
+  setProgressLabel,
+  setGoalButton,
+   goals,
+  setGoals
+}) {
+  const ProgressBarQuotes = [
     "Fuel your progress — one goal at a time.",
     "Watch your progress rise with every task! ",
     "Just a step away, keep going.",
     "Great job! Now you cand add new goals.↗️ ",
-  ]
-  const [goals, setGoals] = useState(
-    JSON.parse(localStorage.getItem("goals")) || [
-      { text: "Drink 8 glasses of water", completed: false },
-      { text: "Spend 30 minutes learning something new", completed: false},
-      { text: "", completed: false },
-    ]
-  );
+  ];
+  // const [goals, setGoals] = useState(
+  //   JSON.parse(localStorage.getItem("goals")) || [
+  //     { text: "Drink 8 glasses of water", completed: false },
+  //     { text: "Spend 30 minutes learning something new", completed: false },
+  //     { text: "", completed: false },
+  //   ]
+  // );
 
   const ProgressBar = () => {
     // Calculate progress bar value
@@ -22,7 +28,14 @@ export default function GoalInput({ setProgressValue ,setProgressLabel}) {
       return value.completed;
     });
     setProgressValue((completedGoals.length * 100) / goals.length);
-    setProgressLabel(ProgressBarQuotes[completedGoals.length])
+
+    if (completedGoals.length >= 3) {
+      setGoalButton(true);
+    } else {
+      setGoalButton(false);
+    }
+
+    setProgressLabel(ProgressBarQuotes[completedGoals.length]);
   };
   onload = () => {
     ProgressBar();
@@ -55,8 +68,12 @@ export default function GoalInput({ setProgressValue ,setProgressLabel}) {
     // Calculate progress bar value
     ProgressBar();
 
-    // if (index === goals.length - 1) {
-    //   setGoals([...goals, { text: "", completed: false }]);
+    // Check if all goals are completed
+    // const allCompleted = updatedGoals.every((goal) => goal.completed);
+    // setGoalButton(allCompleted);
+    //  if (index === goals.length - 1) {
+    //     setGoalButton(true)
+    // setGoals([...goals, { text: "", completed: false }]);
     // }
   };
 
