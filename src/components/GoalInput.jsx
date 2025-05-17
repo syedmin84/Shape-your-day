@@ -12,7 +12,7 @@ export default function GoalInput({
     "Fuel your progress — one goal at a time.",
     "Watch your progress rise with every task! ",
     "Just a step away, keep going.",
-    "Great job! Now you cand add new goals.↗️ ",
+    "Great job! Now you cand add new goals.",
   ];
 
   const ProgressBar = () => {
